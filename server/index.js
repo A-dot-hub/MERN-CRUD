@@ -3,28 +3,38 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const UserModel = require("./models/Users");
 
+// Load environment variables for local testing (Requires 'npm install dotenv')
+require("dotenv").config();
+
 const app = express();
-app.use(cors());
-app.use(express.json()); // Parses data coming from the frontend into JSON format
 
-// Connect to MongoDB locally
+// Configure CORS to allow requests from any origin during deployment
+// Replace your current app.use(cors(...)) with this:
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow requests from your Vite frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+);
+
+app.use(express.json()); // Parses incoming JSON data
+
+// Connect to MongoDB Atlas using the Environment Variable
 mongoose
-  .connect("mongodb://127.0.0.1:27017/crud")
-  .then(() => {
-    console.log("MongoDB connected successfully");
-  })
-  .catch((err) => {
-    console.log("MongoDB connection failed:", err.message);
-  });
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("Connected to MongoDB Atlas successfully!"))
+  .catch((err) => console.log("Failed to connect to MongoDB", err));
 
-// Get all users
+// 1. Get all users
 app.get("/", (req, res) => {
   UserModel.find({})
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
 });
 
-// Get a specific user by ID
+// 2. Get a specific user by ID
 app.get("/getUser/:id", (req, res) => {
   const id = req.params.id;
   UserModel.findById({ _id: id })
@@ -32,7 +42,7 @@ app.get("/getUser/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Update a user by ID
+// 3. Update a user by ID
 app.put("/updateUser/:id", (req, res) => {
   const id = req.params.id;
   UserModel.findByIdAndUpdate(
@@ -47,7 +57,7 @@ app.put("/updateUser/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Delete a user by ID
+// 4. Delete a user by ID
 app.delete("/deleteUser/:id", (req, res) => {
   const id = req.params.id;
   UserModel.findByIdAndDelete({ _id: id })
@@ -55,13 +65,18 @@ app.delete("/deleteUser/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-// Create a new user
+// 5. Create a new user
 app.post("/createUser", (req, res) => {
   UserModel.create(req.body)
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
 });
 
-app.listen(3001, () => {
-  console.log("Server is running");
+// Local testing port
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
+
+// EXPORT THE APP FOR VERCEL
+module.exports = app;
