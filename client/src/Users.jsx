@@ -8,14 +8,14 @@ function Users() {
   useEffect(() => {
     // Fetch all records from the server
     axios
-      .get("http://localhost:3001")
+      .get("https://mern-crud-xyz.vercel.app")
       .then((result) => setUsers(result.data))
       .catch((err) => console.log(err));
   }, []);
 
   const handleDelete = (id) => {
     axios
-      .delete("http://localhost:3001/deleteUser/" + id)
+      .delete("https://mern-crud-xyz.vercel.app/deleteUser/" + id)
       .then((res) => {
         console.log(res);
         window.location.reload(); // Reload the page to reflect the deletion

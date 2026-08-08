@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow requests from your Vite frontend
+    origin: "https://mern-crud-lake.vercel.app", // Strictly allows your Vercel front-end
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),

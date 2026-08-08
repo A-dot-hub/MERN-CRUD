@@ -12,7 +12,7 @@ function UpdateUser() {
   useEffect(() => {
     // Fetch the existing data for this user ID
     axios
-      .get("http://localhost:3001/getUser/" + id)
+      .get("https://mern-crud-xyz.vercel.app/getUser/" + id)
       .then((result) => {
         console.log(result);
         setName(result.data.name);
@@ -25,7 +25,11 @@ function UpdateUser() {
   const update = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:3001/updateUser/" + id, { name, email, age })
+      .put("https://mern-crud-xyz.vercel.app/updateUser/" + id, {
+        name,
+        email,
+        age,
+      })
       .then((result) => {
         console.log(result);
         navigate("/"); // Redirect to homepage after update
