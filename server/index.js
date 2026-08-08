@@ -8,7 +8,14 @@ app.use(cors());
 app.use(express.json()); // Parses data coming from the frontend into JSON format
 
 // Connect to MongoDB locally
-mongoose.connect("mongodb://127.0.0.1:27017/crud");
+mongoose
+  .connect("mongodb://127.0.0.1:27017/crud")
+  .then(() => {
+    console.log("MongoDB connected successfully");
+  })
+  .catch((err) => {
+    console.log("MongoDB connection failed:", err.message);
+  });
 
 // Get all users
 app.get("/", (req, res) => {
