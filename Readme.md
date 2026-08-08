@@ -65,13 +65,151 @@ The repository is divided into two main directories:
     └── package.json
 ```
 
-🚀 Local Setup & InstallationTo run this project locally on your machine, follow these steps:PrerequisitesNode.js installed on your machine.A MongoDB Atlas account and cluster.1. Clone the repositoryBashgit clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name 2. Backend Setup (server)Bashcd server
+# 🚀 Local Setup & Installation
+
+To run this project locally on your machine, follow these steps.
+
+## Prerequisites
+
+Make sure you have the following installed:
+
+- **Node.js**
+- **MongoDB** (local MongoDB installation or MongoDB Atlas)
+
+---
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+---
+
+## 2. Backend Setup
+
+Navigate to the `server` directory:
+
+```bash
+cd server
 npm install
-Create a .env file in the root of the server directory and add your MongoDB Atlas connection string:Code snippet MONGODB_URI="mongodb+srv://<username>:<password>@<cluster-url>/<database-name>?retryWrites=true&w=majority"
+```
+
+### Configure Environment Variables
+
+Create a `.env` file inside the `server` directory:
+
+```text
+server/
+├── .env
+├── index.js
+├── models/
+├── package.json
+└── ...
+```
+
+Add your MongoDB connection string and port:
+
+```env
+MONGODB_URI="mongodb+srv://<username>:<password>@<cluster-url>/<database>?retryWrites=true&w=majority"
 PORT=3001
-Start the backend server:Bashnpm start
-(The server will run on http://localhost:3001)3. Frontend Setup (client)Open a new terminal window/tab:Bashcd client
+```
+
+> **Important:** Never commit your `.env` file to GitHub. Add `.env` to your `.gitignore`.
+
+### Start the Backend Server
+
+```bash
+npm start
+```
+
+The backend server will run at:
+
+```text
+http://localhost:3001
+```
+
+---
+
+## 3. Frontend Setup
+
+Open a **new terminal window** and navigate to the `client` directory:
+
+```bash
+cd client
 npm install
-Start the React development server:Bashnpm run dev
-(The frontend will run on http://localhost:5173)📡 API EndpointsThe backend exposes the following REST API endpoints:MethodEndpointDescriptionGET/Fetches all user recordsGET/getUser/:idFetches a single user by their IDPOST/createUserCreates a new user recordPUT/updateUser/:idUpdates an existing user by IDDELETE/deleteUser/:idDeletes a user by ID📝 LicenseThis project is open-source and available under the MIT License.
+```
+
+Start the React development server:
+
+```bash
+npm run dev
+```
+
+The frontend will run at:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint          | Description                    |
+| ------ | ----------------- | ------------------------------ |
+| GET    | `/`               | Fetches all user records       |
+| GET    | `/getUser/:id`    | Fetches a single user by ID    |
+| POST   | `/createUser`     | Creates a new user record      |
+| PUT    | `/updateUser/:id` | Updates an existing user by ID |
+| DELETE | `/deleteUser/:id` | Deletes a user by ID           |
+
+---
+
+```text
+MernCrud/
+├── client/
+│   ├── src/
+│   ├── package.json
+│   └── ...
+│
+├── server/
+│   ├── models/
+│   ├── index.js
+│   ├── .env
+│   └── package.json
+│
+├── .gitignore
+└── README.md
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React.js
+- HTML
+- CSS
+- JavaScript
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+
+### Development Tools
+
+- Git & GitHub
+- Nodemon
+- MongoDB Atlas / MongoDB
+
+---
+
+## 📝 License
+
+This project is open-source and available under the **MIT License**.
